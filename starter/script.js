@@ -5,20 +5,48 @@ $( document ).ready(function() {
         var searchInput = $('#search-input').val().trim();
         var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchInput + "&limit=5&appid=" + apiKey;
         // var queryURL = " http://api.openweathermap.org/geo/1.0/direct?q=" + searchInput + "&limit=5&appid=" + apiKey;
+
+        var currentDate = $('#today');
     
     
-        $("#form-input").on("click", function () {
+        $("#search-button").on("click", function (event) {
+            event.preventDefault()
             fetch(queryURL)
             .then(function (response) {
                 return response.json();
             }).then(function (data) {
                 console.log(data);
 
-                var foreCast = $("<p>").text(data.list.main.temp);
-                var showWind = $("<p>").text(data.list.wind.speed);
-                var showHumidity = $("<p>").text(data.list.main.humidity);
+                fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + data[0].lat + "&lon=" + data[0].lon + "&units=metric" + "&appid=" + apiKey)
+                .then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    console.log(data);
 
-                $("#forecast").append(foreCast, showWind, showHumidity);
+
+
+                })
+
+                fetch("http://api.openweathermap.org/data/2.5/forecast?lat=" + data[0].lat + "&lon=" + data[0].lon + "&units=metric" + "&appid=" + apiKey)
+                .then(function (response) {
+                    return response.json();
+                }).then(function (data) {
+                    console.log(data);
+
+                    for (var i = 0; i < data.list.length; i += 8) {
+
+                        var foreCast = $("<p>").addClass("card card-body").text(data.list[i].main.temp);
+                        var showWind = $("<p>").text(data.list[i].wind.speed);
+                        var showHumidity = $("<p>").text(data.list[i].main.humidity);
+                        var today = dayjs().format('L');
+                        currentDate.text(data.list[i].dt_text);
+        
+                        $("#forecast").append(foreCast, showWind, showHumidity);
+                    }
+
+                });
+
+
             });
         });
 });
