@@ -35,13 +35,13 @@ $( document ).ready(function() {
 
                     for (var i = 0; i < data.list.length; i += 8) {
 
-                        var foreCast = $("<p>").addClass("card card-body").text(data.list[i].main.temp);
+                        var foreCast = $("<p>").addClass("font-weight-bold text-primary").text(data.list[i].main.temp);
                         var showWind = $("<p>").text(data.list[i].wind.speed);
                         var showHumidity = $("<p>").text(data.list[i].main.humidity);
                         var today = dayjs().format('L');
-                        currentDate.text(data.list[i].dt_text);
+                        var thisDate = currentDate.text(data.list[i].dt_text);
         
-                        $("#forecast").append(foreCast, showWind, showHumidity);
+                        $("#forecast").append(foreCast, showWind, showHumidity, thisDate);
                     }
 
                 });
