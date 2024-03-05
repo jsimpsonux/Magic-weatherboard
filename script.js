@@ -35,21 +35,32 @@ $( document ).ready(function() {
 
                     for (var i = 0; i < data.list.length; i += 8) {
 
-                        var cardStyle = $("<div>").addClass("card").css("width: 18rem;");
-                        var cardBody = cardStyle.prepend("<div class='card'></div>");
+                        // // var cardStyle = $("<div>").addClass("card").css("width: 18rem;");
+                        // // var cardBody = cardStyle.prepend("<div class='card'></div>");
 
-                        var foreCast = $("<p>").addClass("font-weight-bold text-primary").text(data.list[i].main.temp);
-                        var showWind = $("<p>").text(data.list[i].wind.speed);
-                        var showHumidity = $("<p>").text(data.list[i].main.humidity);
-                        var thisDate = currentDate.text(data.list[i].dt_text);
-                        var columns = $("<div class='col'></div>");
+                        // var foreCast = $("<p>").addClass("font-weight-bold text-primary").text(data.list[i].main.temp);
+                        // var showWind = $("<p>").text(data.list[i].wind.speed);
+                        // var showHumidity = $("<p>").text(data.list[i].main.humidity);
+                        // var thisDate = currentDate.text(data.list[i].dt_text);
+                        // var columns = $("<div class='col'></div>");
 
-                        var cardContent = cardBody.prepend(columns)
+                        // // var cardContent = cardBody.prepend(columns)
 
-                        columns.append(foreCast, showWind, showHumidity, thisDate);
+                        // columns.append(foreCast, showWind, showHumidity, thisDate);
 
         
-                        $("#forecast").append(columns);
+                        // $("#forecast").append(columns);
+
+                        var dateEl = document.getElementById(`forecast${i}`);
+                        var temp = document.getElementById(`temp${i}`);
+                        var humidity = document.getElementById(`humidity${i}`);
+                        var icon = document.getElementById(`weathericon${i}`);
+                        var iconUrl = 'https://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png';
+
+                        icon.src = iconUrl;
+                        dateEl.textContent = data.list[i].dt_txt;
+                        temp.textContent = data.list[i].main.temp;
+                        humidity.textContent = data.list[i].main.humidity;
                     }
 
 
@@ -62,6 +73,10 @@ $( document ).ready(function() {
 
             // display here
             var storedCities = [];
+
+            if (searchInput = data.name[i]){
+                localStorage.setItem(storedCities, JSON.stringify() )
+            }
 
             // if (var i = 0; i < data.name.length; i++) {
 
