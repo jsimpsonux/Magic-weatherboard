@@ -148,6 +148,7 @@ function currentWeather(lat, lon) {
 
     historyEL.addEventListener("click", renderWeather);
     init()
+    
 }
 
 });
